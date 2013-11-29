@@ -1,0 +1,12 @@
+/* Feature Icon size in the admin Metabox - This uses the field_id of the metabox filter */
+.mp-button-icon{
+	float:left;
+	display:inline-block;
+	padding:15px;	
+	font-size:30px;
+}
+.mp_button_font_icon_thumbnail{
+	float:left;
+	padding:4px;
+	display:none;	
+}
