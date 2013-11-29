@@ -10,3 +10,18 @@
 	padding:4px;
 	display:none;	
 }
+#mp-buttons-media-icon {
+	background: url(../../assets/mp_button-icon-2x.png) 0 -16px no-repeat;
+	background-size: 12px 30px;
+}
+@media
+only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (   min--moz-device-pixel-ratio: 1.5),
+only screen and (     -o-min-device-pixel-ratio: 3/2),
+only screen and (        min-device-pixel-ratio: 1.5),
+only screen and (        		 min-resolution: 1.5dppx) {
+	#mp-buttons-media-icon {
+		background-image: url(<?php echo $icon_2x_url; ?>);
+		background-position: 0 -17px;
+	}
+}
