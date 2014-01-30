@@ -3,7 +3,7 @@
 Plugin Name: MP Buttons
 Plugin URI: http://moveplugins.com
 Description: Insert buttons into TinyMCE
-Version: beta1.0.0.1
+Version: beta1.0.0.2
 Author: Move Plugins
 Author URI: http://moveplugins.com
 Text Domain: mp_buttons

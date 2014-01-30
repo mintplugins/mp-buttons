@@ -40,6 +40,18 @@ function mp_buttons_insert() {
 	//Get button text
 	var button_text = jQuery('.mp-buttons-text-field').val();
 	
+	//Get button color
+	var button_color = jQuery('.mp-buttons-color-field').val();
+	
+	//Get button text color
+	var button_text_color = jQuery('.mp-buttons-text-color-field').val();
+	
+	//Get button hover color
+	var button_color_hover = jQuery('.mp-buttons-color-field-hover').val();
+	
+	//Get button text color
+	var button_text_color_hover = jQuery('.mp-buttons-text-color-field-hover').val();
+	
 	//Get open type
 	var open_type = jQuery('.mp-buttons-open-type-field').val();
 
@@ -53,16 +65,45 @@ function mp_buttons_insert() {
 	jQuery('.mp-buttons-icon-field').val('');
 	jQuery('.mp-buttons-link-field').val('');
 	jQuery('.mp-buttons-text-field').val('');
+	jQuery('.mp-buttons-color-field').val('');
+	jQuery('.mp-buttons-text-color-field').val('');
+	jQuery('.mp-buttons-color-field-hover').val('');
+	jQuery('.mp-buttons-text-color-field-hover').val('');
 	
-	//Send the button to the editor
+	//Send the css to the editor
 	tinyMCE.activeEditor.selection.setContent(
 		tinyMCE.activeEditor.dom.createHTML(
 			'a', 
-			{href : button_link, class : 'button ' + icon_class, target : open_type}, 
+			{href : button_link, class : 'button ' + mp_buttons_makeSafeForCSS(button_text) + ' ' + icon_class, target : open_type}, 
 			button_text
 		)
 	);
 	
+	//Send the css to the editor
+	tinyMCE.activeEditor.selection.setContent(
+		tinyMCE.activeEditor.dom.createHTML(
+			'style scoped', 
+			{type : 'text/css'}, 
+			'.'+mp_buttons_makeSafeForCSS(button_text)+'{'
+				+ 'background-color:'+button_color+'!important; '
+				+ 'color:'+button_text_color+'!important; ' 
+			+ '}'
+			+'.'+mp_buttons_makeSafeForCSS(button_text)+':hover{'
+				+ 'background-color:'+button_color_hover+'!important; '
+				+ 'color:'+button_text_color_hover+'!important; ' 
+			+ '}'
+		)
+	);			
+	
 	//Close the thickbox
 	tb_remove();
+}
+
+function mp_buttons_makeSafeForCSS(name) {
+    return name.replace(/[^a-z0-9]/g, function(s) {
+        var c = s.charCodeAt(0);
+        if (c == 32) return '-';
+        if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
+        return '__' + ('000' + c.toString(16)).slice(-4);
+    });
 }
