@@ -42,7 +42,7 @@ function mp_buttons_insert() {
 	
 	//Get button color
 	var button_color = jQuery('.mp-buttons-color-field').val();
-	
+		
 	//Get button text color
 	var button_text_color = jQuery('.mp-buttons-text-color-field').val();
 	
@@ -65,10 +65,6 @@ function mp_buttons_insert() {
 	jQuery('.mp-buttons-icon-field').val('');
 	jQuery('.mp-buttons-link-field').val('');
 	jQuery('.mp-buttons-text-field').val('');
-	jQuery('.mp-buttons-color-field').val('');
-	jQuery('.mp-buttons-text-color-field').val('');
-	jQuery('.mp-buttons-color-field-hover').val('');
-	jQuery('.mp-buttons-text-color-field-hover').val('');
 	
 	//Send the css to the editor
 	tinyMCE.activeEditor.selection.setContent(
