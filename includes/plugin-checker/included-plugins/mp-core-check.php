@@ -26,7 +26,7 @@ if (!function_exists('mp_core_plugin_check')){
 		$add_plugins = array(
 			array(
 				'plugin_name' => 'MP Core',
-				'plugin_message' => __('You require the MP Core plugin. Install it here.', 'mp_stacks_features'), 
+				'plugin_message' => __('You require the MP Core plugin. Install it here.', 'mp_buttons'), 
 				'plugin_filename' => 'mp-core.php',
 				'plugin_download_link' => 'http://moveplugins.com/repo/mp-core/?downloadfile=true',
 				'plugin_info_link' => 'http://moveplugins.com/plugins/mp-core',

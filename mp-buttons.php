@@ -3,7 +3,7 @@
 Plugin Name: MP Buttons
 Plugin URI: http://moveplugins.com
 Description: Insert buttons into TinyMCE
-Version: beta1.0.0.4
+Version: 1.0.0.0
 Author: Move Plugins
 Author URI: http://moveplugins.com
 Text Domain: mp_buttons
@@ -11,7 +11,7 @@ Domain Path: languages
 License: GPL2
 */
 
-/*  Copyright 2012  Phil Johnston  (email : phil@moveplugins.com)
+/*  Copyright 2014  Phil Johnston  (email : phil@moveplugins.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
