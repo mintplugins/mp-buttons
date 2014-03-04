@@ -3,7 +3,7 @@
 Plugin Name: MP Buttons
 Plugin URI: http://moveplugins.com
 Description: Insert buttons into TinyMCE
-Version: 1.0.0.3
+Version: 1.0.0.4
 Author: Move Plugins
 Author URI: http://moveplugins.com
 Text Domain: mp_buttons
@@ -34,7 +34,7 @@ License: GPL2
 */
 // Plugin version
 if( !defined( 'MP_BUTTONS_VERSION' ) )
-	define( 'MP_BUTTONS_VERSION', '1.0.0.3' );
+	define( 'MP_BUTTONS_VERSION', '1.0.0.4' );
 
 // Plugin Folder URL
 if( !defined( 'MP_BUTTONS_PLUGIN_URL' ) )
@@ -126,7 +126,7 @@ function mp_buttons_include_files(){
 		/**
 		 * keep mp_buttons up to date
 		 */
-		require( MP_BUTTONS_PLUGIN_DIR . 'includes/misc-functions/mp-buttons-update.php' );
+		require( MP_BUTTONS_PLUGIN_DIR . 'includes/updater/mp-buttons-update.php' );
 		
 		/**
 		 * enqueue scripts
