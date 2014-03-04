@@ -33,6 +33,9 @@ Make buttons!
 
 == Changelog ==
 
+= 1.0.0.3 = March 4, 2014
+* Added MP repo updater back
+
 = 1.0.0.2 = March 3, 2014
 * Localized all strings
 * Improved JS insert to work with either TinyMCE of Raw Text area.
