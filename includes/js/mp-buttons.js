@@ -1,6 +1,6 @@
 jQuery(document).ready(function($){
 	
-	//When Icon Font Picker item is clicked, put it's value in the field and close the thickbox
+	//When Icon Font Picker item is clicked, put it's value in the field and close the pickerdiv
 	$( 'body' ).on( 'click', '.mp-button-icon-picker-item', function(event){
 		
 		event.preventDefault();
@@ -66,18 +66,17 @@ function mp_buttons_insert() {
 	jQuery('.mp-buttons-link-field').val('');
 	jQuery('.mp-buttons-text-field').val('');
 	
-	//Send the css to the editor
-	tinyMCE.activeEditor.selection.setContent(
+	//Send the button to the editor
+	window.send_to_editor(
 		tinyMCE.activeEditor.dom.createHTML(
 			'a', 
 			{href : button_link, class : 'button ' + mp_buttons_makeSafeForCSS(button_text) + ' ' + icon_class, target : open_type}, 
 			button_text
 		)
 	);
-	
-	//Send the css to the editor
-	tinyMCE.activeEditor.selection.setContent(
-		tinyMCE.activeEditor.dom.createHTML(
+
+	// Send css to the editor ?>
+	window.send_to_editor(tinyMCE.activeEditor.dom.createHTML(
 			'style scoped', 
 			{type : 'text/css'}, 
 			'.'+mp_buttons_makeSafeForCSS(button_text)+'{'
@@ -88,8 +87,7 @@ function mp_buttons_insert() {
 				+ 'background-color:'+button_color_hover+'!important; '
 				+ 'color:'+button_text_color_hover+'!important; ' 
 			+ '}'
-		)
-	);			
+		));		
 	
 	//Close the thickbox
 	tb_remove();

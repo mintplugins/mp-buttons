@@ -4,7 +4,7 @@ Donate link: http://moveplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.0.0.1
+Stable tag: 1.0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,11 @@ Make buttons!
 
 == Changelog ==
 
-= 1.0.0.1 = March 2, 2014
+= 1.0.0.2 = March 3, 2014
+* Localized all strings
+* Improved JS insert to work with either TinyMCE of Raw Text area.
+
+= 1.0.0.1 = March 3, 2014
 * Removed custom update script in favour of the WP repo.
 
 = 1.0.0.0 = March 2, 2014
