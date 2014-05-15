@@ -1,6 +1,6 @@
 === MP Buttons ===
-Contributors: johnstonphilip, moveplugins
-Donate link: http://moveplugins.com/
+Contributors: johnstonphilip, mintplugins
+Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 3.8

@@ -1,21 +1,21 @@
 <?php
 /*
 Plugin Name: MP Buttons
-Plugin URI: http://moveplugins.com
+Plugin URI: http://mintplugins.com
 Description: Insert buttons into TinyMCE
-Version: 1.0.0.4
-Author: Move Plugins
-Author URI: http://moveplugins.com
+Version: 1.0.0.5
+Author: Mint Plugins
+Author URI: http://mintplugins.com
 Text Domain: mp_buttons
 Domain Path: languages
 License: GPL2
 */
 
-/*  Copyright 2014  Phil Johnston  (email : phil@moveplugins.com)
+/*  Copyright 2014  Phil Johnston  (email : phil@mintplugins.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
-    published by the Free Software Move Plugins Core.
+    published by the Free Software Mint Plugins Core.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -137,6 +137,11 @@ function mp_buttons_include_files(){
 		 * button creator
 		 */
 		require( MP_BUTTONS_PLUGIN_DIR . 'includes/misc-functions/button-creator.php' );
+		
+		/**
+		 * button creator
+		 */
+		require( MP_BUTTONS_PLUGIN_DIR . 'includes/misc-functions/misc-functions.php' );
 				
 	}
 }

@@ -1,6 +1,6 @@
 === MP Buttons ===
-Contributors: johnstonphilip, moveplugins
-Donate link: http://moveplugins.com/
+Contributors: johnstonphilip, mintplugins
+Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 3.8
@@ -32,6 +32,10 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.0.5 = May 15, 2014
+* Added support or <style> tags in tinyMCE 4.0 and wp 3.9
+* Move to Mint
 
 = 1.0.0.4 = March 4, 2014
 * Location of update fix
