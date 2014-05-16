@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.0.0.4
+Stable tag: 1.0.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.0.6 = May 16, 2014
+* Wrap CSS tag in Span tag before inserting into tinyMCE. Additional fix from 1.0.0.5
 
 = 1.0.0.5 = May 15, 2014
 * Added support or <style> tags in tinyMCE 4.0 and wp 3.9

@@ -68,11 +68,17 @@ function mp_buttons_insert() {
 	
 	//Send the button to the editor
 	window.send_to_editor(
-		'<a href="' + button_link + '" class="button ' + mp_buttons_makeSafeForCSS(button_text) + ' ' + icon_class + '" target="' + open_type + '">' + button_text + '</a>'
+		tinyMCE.activeEditor.dom.createHTML(
+			'a', 
+			{href : button_link, class : 'button ' + mp_buttons_makeSafeForCSS(button_text) + ' ' + icon_class, target : open_type}, 
+			button_text
+		)
 	);
-
-	// Send css to the editor ?>
-	window.send_to_editor('<style scoped type="text/css">.'+mp_buttons_makeSafeForCSS(button_text)+'{'
+	
+	css_string = tinyMCE.activeEditor.dom.createHTML(
+			'span', 
+			{class : 'mp_css_holder'}, 
+			'<style type="text/css" scoped>.'+mp_buttons_makeSafeForCSS(button_text)+'{'
 				+ 'background-color:'+button_color+'!important; '
 				+ 'color:'+button_text_color+'!important; ' 
 			+ '}'
@@ -80,7 +86,11 @@ function mp_buttons_insert() {
 				+ 'background-color:'+button_color_hover+'!important; '
 				+ 'color:'+button_text_color_hover+'!important; ' 
 			+ '}</style>'
-		);		
+			);
+	
+	// Send css to the editor ?>
+	window.send_to_editor(css_string);		
+
 	
 	//Close the thickbox
 	tb_remove();
