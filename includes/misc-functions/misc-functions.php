@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the button creation scripts function for the buttons plugin
+ * This file contains misc functions used by MP Buttons
  *
  * @since 1.0.0
  *
@@ -11,3 +11,4 @@
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
+ 

@@ -1,16 +1,4 @@
-/* Feature Icon size in the admin Metabox - This uses the field_id of the metabox filter */
-.mp-button-icon{
-	float:left;
-	display:inline-block;
-	padding:15px;	
-	font-size:30px;
-}
-.mp_button_font_icon_thumbnail{
-	float:left;
-	padding:4px;
-	display:none;	
-}
-#mp-buttons-media-icon {
+#mp_button-media-button {
 	background: url(../../assets/mp_button-icon-2x.png) 0 -16px no-repeat;
 	background-size: 12px 30px;
 }
@@ -20,7 +8,7 @@ only screen and (   min--moz-device-pixel-ratio: 1.5),
 only screen and (     -o-min-device-pixel-ratio: 3/2),
 only screen and (        min-device-pixel-ratio: 1.5),
 only screen and (        		 min-resolution: 1.5dppx) {
-	#mp-buttons-media-icon {
+	#mp_button-media-button {
 		background-image: url(<?php echo $icon_2x_url; ?>);
 		background-position: 0 -17px;
 	}

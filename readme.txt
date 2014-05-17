@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.0.0.6
+Stable tag: 1.0.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,10 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.0.7 = May 17, 2014
+* Major update which uses a button shortcode now instead of inserting HTML and CSS directly into TinyMCE because TinyMCE wasn’t playing nice.
+
 
 = 1.0.0.6 = May 16, 2014
 * Wrap CSS tag in Span tag before inserting into tinyMCE. Additional fix from 1.0.0.5

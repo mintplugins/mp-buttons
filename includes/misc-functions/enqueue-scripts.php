@@ -59,20 +59,5 @@ function mp_buttons_admin_enqueue_scripts(){
 	//Enqueue Admin Features CSS
 	wp_enqueue_style( 'mp_buttons_css', plugins_url( 'css/admin-buttons.css', dirname( __FILE__ ) ) );
 	
-	//mp buttons admin js
-	wp_enqueue_script( 'mp_buttons_admin_js', plugins_url('js/mp-buttons-admin.js', dirname(__FILE__) ), array( 'jquery' ) );
-	
-	$post_id = get_the_ID();
-	
-	if ( !empty( $post_id ) ){
-		wp_localize_script( 'mp_buttons_admin_js', 'mp_buttons_vars', 
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'ajax_nonce_value' => wp_create_nonce( 'mp-buttons-nonce-action-name' ), 
-				'ajax_mp_buttons_post_id' => get_the_ID(), 
-			) 
-		);	
-	}
-
 }
 add_action( 'admin_enqueue_scripts', 'mp_buttons_admin_enqueue_scripts' );

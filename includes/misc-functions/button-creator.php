@@ -13,209 +13,141 @@
  */
  
 /**
- * Enqueue JS and CSS for buttons 
- *
- * @access   public
- * @since    1.0.0
- * @return   void
- */
-
-/**
- * Enqueue css and js
- *
- */
-function mp_buttons_thickboxes(){
-	
-	//Create Thickbox
-	echo '<div id="mp-buttons-thickbox" style="display: none;">';
-	?>
-		<div class="wrap" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
-            
-            <p><?php echo __( 'Use the form below to insert a button', 'mp_buttons' ); ?> </p>
-            
-            <div class="mp_field">
-            
-                <div class="mp_title"><label for="mp_button_icon"><strong><?php echo __( 'Button Icon:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'If you want to have an icon on this button, pick one here.', 'mp_buttons' ); ?></em></label></div>     
-                <input type="hidden" class="mp-buttons-icon-field" />
-                 
-                <?php
-                //Font thumbnail
-                echo '<div class="mp_button_font_icon_thumbnail">';
-                    echo '<div class="">';
-                        echo '<div class="mp-iconfontpicker-title" ></div>';
-                    echo '</div>';
-                echo '</div>';
-                ?>
-                
-                <a class="mp-button-icon-select button"><?php _e('Select Icon', 'mp-buttons'); ?></a>
-            	
-                <?php		
-		
-				//Get all font styles in the css document and put them in an array
-				$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
-				//$subject = file_get_contents( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
-				
-				// Initializing curl
-				$ch = curl_init();
-				 
-				//Return Transfer
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				
-				//File to fetch
-				curl_setopt($ch, CURLOPT_URL, plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
-														 
-				// Getting results
-				$subject =  curl_exec($ch); // Getting jSON result string
-				
-				curl_close($ch);
-				
-			
-				
-				preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
-				
-				$icons = array();
-			
-				foreach($matches as $match){
-					$icons[$match[1]] = $match[1];
-				}	
-				
-				?>
-				
-				<div class="mp-buttons-icon-picker-area" style="display: none;">
-				
-					<?php
-					foreach( $icons as $icon ){
-						
-						echo '<a href="#" class="mp-button-icon-picker-item">';
-													
-							echo '<div class="' . $icon . ' mp-button-icon">';
-								
-								echo '<div class="mp-iconfontpicker-title" >' . $icon . '</div>';
-							
-							echo '</div>';
-						
-						echo '</a>';
-							 
-					} 
-					?>
-					
-				</div>
-		
-            </div>
-            
-            <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_text"><strong><?php echo __( 'Button Text:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'What should the button say?', 'mp_buttons' ); ?></em></label></div>   
-            	<input type="text" class="mp-buttons-text-field" />
-                
-            </div>
-            
-            <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_link"><strong><?php echo __( 'Button Link:', 'mp_core' ); ?></strong> <em><?php echo __( 'Where should this button go when clicked?', 'mp_buttons' ); ?></em></label></div>   
-            	<input type="url" class="mp-buttons-link-field" />
-                
-            </div>
-            
-            <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_color"><strong><?php echo __( 'Button Color:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'Pick a color for this button', 'mp_buttons' ); ?></em></label></div>   
-            	<input type="text" class="mp-buttons-color-field of-color" />
-                
-            </div>
-            
-             <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_text_color"><strong><?php echo __( 'Button Text Color:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'Pick a color for text on this button', 'mp_core' ); ?></em></label></div>   
-            	<input type="text" class="mp-buttons-text-color-field of-color" />
-                
-            </div>
-            
-             <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_color_hover"><strong><?php echo __( 'Mouse-Over Button Color:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'Pick a color for this button when the mouse is over it:', 'mp_buttons' ); ?></em></label></div>   
-            	<input type="text" class="mp-buttons-color-field-hover of-color" />
-                
-            </div>
-            
-            <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_text_color_hover"><strong><?php echo __( 'Mouse-Over Button Text Color:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'Pick a color for text on this button when the mouse is over it', 'mp_buttons' ); ?></em></label></div>   
-            	<input type="text" class="mp-buttons-text-color-field-hover of-color" />
-                
-            </div>
-            
-            <div class="mp_field">
-            	
-                <div class="mp_title"><label for="mp_button_window"><strong><?php echo __( 'Button Open Type:', 'mp_buttons' ); ?></strong> <em><?php echo __( 'Where/How should this link open?', 'mp_buttons' ); ?></em></label></div>   
-            	
-                
-                <select class="mp-buttons-open-type-field" />
-                  <option value="_self"><?php echo __( 'Open in this window', 'mp_buttons' ); ?></option>
-                  <option value="_blank"><?php echo __( 'Open in a new Window/Tab', 'mp_buttons' ); ?></option>
-                </select>
-                
-            </div>
-            
-            <p class="submit">
-            
-                <input type="button" class="button-primary" value="<?php echo __('Insert Button', 'mp_buttons') ?>" onclick="mp_buttons_insert();" />
-                <a id="cancel-mp-buttons-insert" class="button-secondary" onclick="tb_remove();" title="<?php _e( 'Cancel', 'mp_buttons' ); ?>"><?php _e( 'Cancel', 'mp_buttons' ); ?></a>
-            
-            </p>
-                
-		</div>
-        
-	<?php
-	//End Thickbox
-	echo '</div>';
-		
-}
-add_action( 'admin_footer', 'mp_buttons_thickboxes' );
-
-/**
- * Media Button
- *
- * Returns the "Insert Button" TinyMCE button.
- *
- * @access     public
- * @since      1.0.0
- * @global     $pagenow
- * @global     $typenow
- * @global     $wp_version
- * @param      string $context The string of buttons that already exist
- * @return     string The HTML output for the media buttons
+* Shortcode which is used to display the button
 */
-function mp_buttons_media_button( $context ) {
+function mp_buttons_shortcode( $atts ) {
+	global $mp_buttons_meta_box;
+	$vars =  shortcode_atts( array(
+		'icon' => NULL,
+		'text' => NULL,
+		'link' => NULL,
+		'color' => NULL,
+		'text_color' => NULL,
+		'hover_color' => NULL,
+		'hover_text_color' => NULL,
+		'open_type' => NULL,
+	), $atts );
 	
-	global $pagenow, $typenow, $wp_version;
+	//add space to text if icon is present
+	$button_text = !empty( $vars['icon'] ) ? ' ' . $vars['text'] : $vars['text'];
 	
-	$output = '';
-
-	/** Only run in post/page creation and edit screens */
-	if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) ) {
-		
-		//Check current WP version - If we are on an older version than 3.5
-		if ( version_compare( $wp_version, '3.5', '<' ) ) {
-			
-			//Output old style button
-			$output = '<a href="#TB_inline?width=640&inlineId=mp-buttons-thickbox" class="thickbox" title="' . __('Add Button', 'mp_core') . '">' . $img . '</a>';
-			
-		//If we are on a newer than 3.5 WordPress	
-		} else {
-			
-			//Output new style button
-			$output = '<a href="#TB_inline?width=640&inlineId=mp-buttons-thickbox" class="thickbox button" title="' . __('Add Button', 'mp_core') . '">';
-			
-			//Media Button Image
-			$output .= '<span class="wp-media-buttons-icon" id="mp-buttons-media-icon"></span>';
-			
-			//Finish the output
-			$output.= __('Add Button', 'mp_core') . '</a>';
-		}
+	$button_html = '<a class="button mp-button-' . sanitize_title( $vars['text'] ) . ' ' . $vars['icon'] . '" href="' . $vars['link'] . '"	target="' . $vars['open_type'] . '">' . $button_text. '</a>';
+	$button_html .= '<style scoped>
+	
+	.mp-button-' . sanitize_title( $vars['text'] ) .'{
+		background-color: ' . $vars['color'] . '!important;
+		color: ' . $vars['text_color'] . '!important;
 	}
-	
-	//Add new button to list of buttons to output
-	return $context . $output;
+	.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
+		background-color: ' . $vars['hover_color'] . '!important;
+		color: ' . $vars['hover_text_color'] . '!important;
+	}
+	</style>';
+		
+	//Return the stack HTML output - pass the function the stack id
+	return $button_html;
 }
-add_filter( 'media_buttons_context', 'mp_buttons_media_button' );
+add_shortcode( 'mp_button', 'mp_buttons_shortcode' );
+
+/**
+ * Show "Insert Shortcode" above posts
+ */
+function mp_buttons_show_insert_shortcode(){
+	
+	//Get all font styles in the css document and put them in an array
+	$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
+	//$subject = file_get_contents( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	
+	// Initializing curl
+	$ch = curl_init();
+	 
+	//Return Transfer
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	
+	//File to fetch
+	curl_setopt($ch, CURLOPT_URL, plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+											 
+	// Getting results
+	$subject =  curl_exec($ch); // Getting jSON result string
+	
+	curl_close($ch);
+	
+	preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
+	
+	$icons = array();
+
+	foreach($matches as $match){
+		$icons[$match[1]] = $match[1];
+	}
+		
+	$args = array(
+		'shortcode_id' => 'mp_button',
+		'shortcode_title' => __('Button', 'mp_buttons'),
+		'shortcode_description' => __( 'Use the form below to insert the shortcode for your Button:', 'mp_buttons' ),
+		'shortcode_icon_spot' => true,
+		'shortcode_options' => array(
+			array(
+				'option_id' => 'icon',
+				'option_title' => __('Button Icon', 'mp_buttons'),
+				'option_description' => __( 'If you want to have an icon on this button, pick one here.', 'mp_buttons' ),
+				'option_type' => 'iconfontpicker',
+				'option_value' => $icons,
+			),
+			array(
+				'option_id' => 'text',
+				'option_title' => __( 'Button Text', 'mp_buttons' ),
+				'option_description' => __( 'What should the button say?', 'mp_buttons' ),
+				'option_type' => 'textbox',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'link',
+				'option_title' => __( 'Button Link', 'mp_buttons' ),
+				'option_description' => __( 'Where should this button go when clicked?', 'mp_buttons' ),
+				'option_type' => 'textbox',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'color',
+				'option_title' => __( 'Button Color', 'mp_buttons' ),
+				'option_description' => __( 'Pick a color for this button', 'mp_buttons' ),
+				'option_type' => 'colorpicker',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'text_color',
+				'option_title' => __( 'Button Text Color', 'mp_buttons' ),
+				'option_description' => __( 'Pick a color for the text on this button', 'mp_buttons' ),
+				'option_type' => 'colorpicker',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'hover_color',
+				'option_title' => __( 'Mouse-Over Button Color', 'mp_buttons' ),
+				'option_description' => __( 'Pick a color for this button when the mouse is over it', 'mp_buttons' ),
+				'option_type' => 'colorpicker',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'hover_text_color',
+				'option_title' => __( 'Mouse-Over Button Text Color', 'mp_buttons' ),
+				'option_description' => __( 'Pick a color for text on this button when the mouse is over it', 'mp_buttons' ),
+				'option_type' => 'colorpicker',
+				'option_value' => '',
+			),
+			array(
+				'option_id' => 'open_type',
+				'option_title' => __( 'Open Type', 'mp_buttons' ),
+				'option_description' => 'Where/How should this link open?', 'mp_buttons',
+				'option_type' => 'select',
+				'option_value' => array( '_self' => __( 'Open in this window', 'mp_buttons' ), '_blank' => __( 'Open in a new Window/Tab', 'mp_buttons' ) ),
+			),
+		)
+	); 
+		
+	//Shortcode args filter
+	$args = has_filter('mp_buttons_insert_shortcode_args') ? apply_filters('mp_buttons_insert_shortcode_args', $args) : $args;
+	
+	new MP_CORE_Shortcode_Insert($args);	
+}
+add_action('init', 'mp_buttons_show_insert_shortcode');
