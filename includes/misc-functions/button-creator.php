@@ -26,12 +26,30 @@ function mp_buttons_shortcode( $atts ) {
 		'hover_color' => NULL,
 		'hover_text_color' => NULL,
 		'open_type' => NULL,
+		'lightbox_width' => 500,
+		'lightbox_height' => 500,
 	), $atts );
 	
 	//add space to text if icon is present
 	$button_text = !empty( $vars['icon'] ) ? ' ' . $vars['text'] : $vars['text'];
 	
-	$button_html = '<a class="button mp-button-' . sanitize_title( $vars['text'] ) . ' ' . $vars['icon'] . '" href="' . $vars['link'] . '"	target="' . $vars['open_type'] . '">' . $button_text. '</a>';
+	//Set up the target
+	if ( $vars['open_type'] == 'lightbox' ){
+		
+		$lightbox_class = ' mp-stacks-iframe-custom-width-height ';
+		$mfp_width_height_attr = ' mfp-width="' . $vars['lightbox_width'] . '" mfp-height="' . $vars['lightbox_height'] . '" ';
+		$target = NULL;	
+		
+	}
+	else{
+		
+		$lightbox_class = NULL;
+		$mfp_width_height_attr = NULL;
+		$target = ' target="' . $vars['open_type'] . '" ';
+		
+	}
+	
+	$button_html = '<a class="button mp-button-' . sanitize_title( $vars['text'] ) . ' ' . $vars['icon'] . $lightbox_class . '" ' . $mfp_width_height_attr . $target . ' href="' . $vars['link'] . '"	target="' . $vars['open_type'] . '">' . $button_text. '</a>';
 	$button_html .= '<style scoped>
 	
 	.mp-button-' . sanitize_title( $vars['text'] ) .'{
@@ -54,32 +72,26 @@ add_shortcode( 'mp_button', 'mp_buttons_shortcode' );
  */
 function mp_buttons_show_insert_shortcode(){
 	
-	//Get all font styles in the css document and put them in an array
-	$pattern = '/\.(fa-(?:\w+(?:-)?)+):before\s+{\s*content:\s*"(.+)";\s+}/';
-	//$subject = file_get_contents( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	//Get current page
+	$current_page = get_current_screen();
 	
-	// Initializing curl
-	$ch = curl_init();
-	 
-	//Return Transfer
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	
-	//File to fetch
-	curl_setopt($ch, CURLOPT_URL, plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
-											 
-	// Getting results
-	$subject =  curl_exec($ch); // Getting jSON result string
-	
-	curl_close($ch);
-	
-	preg_match_all($pattern, $subject, $matches, PREG_SET_ORDER);
-	
-	$icons = array();
-
-	foreach($matches as $match){
-		$icons[$match[1]] = $match[1];
+	//Only load if we are on an mp_brick page
+	if ( $current_page->base != 'post' ){
+		return;	
 	}
-		
+	
+	//If MP Stacks is installed, give them the option to have a lightbox popup
+	$open_options = function_exists( 'mp_stacks_textdomain' ) ? array( 
+		'_self' => __( 'Open in this window', 'mp_buttons' ), 
+		'_blank' => __( 'Open in a new Window/Tab', 'mp_buttons' ), 
+		'_parent' => __( 'Open in the parent window (If in an iFrame)', 'mp_buttons' ),
+		'lightbox' => __( 'Open in Lightbox Popup', 'mp_buttons' ) 
+	) : array( 
+		'_self' => __( 'Open in this window', 'mp_buttons' ), 
+		'_blank' => __( 'Open in a new Window/Tab', 'mp_buttons' ), 
+		'_parent' => __( 'Open in the parent window (If in an iFrame)', 'mp_buttons' ),
+	);
+	
 	$args = array(
 		'shortcode_id' => 'mp_button',
 		'shortcode_title' => __('Button', 'mp_buttons'),
@@ -91,7 +103,7 @@ function mp_buttons_show_insert_shortcode(){
 				'option_title' => __('Button Icon', 'mp_buttons'),
 				'option_description' => __( 'If you want to have an icon on this button, pick one here.', 'mp_buttons' ),
 				'option_type' => 'iconfontpicker',
-				'option_value' => $icons,
+				'option_value' => mp_stacks_buttons_get_font_awesome_icons(),
 			),
 			array(
 				'option_id' => 'text',
@@ -140,8 +152,26 @@ function mp_buttons_show_insert_shortcode(){
 				'option_title' => __( 'Open Type', 'mp_buttons' ),
 				'option_description' => 'Where/How should this link open?', 'mp_buttons',
 				'option_type' => 'select',
-				'option_value' => array( '_self' => __( 'Open in this window', 'mp_buttons' ), '_blank' => __( 'Open in a new Window/Tab', 'mp_buttons' ) ),
+				'option_value' => $open_options
 			),
+			array(
+				'option_id' => 'lightbox_width',
+				'option_title' => __( 'Lightbox Width', 'mp_buttons' ),
+				'option_description' => 'What width should the lightbox popup be? (Default 500)', 'mp_buttons',
+				'option_type' => 'number',
+				'option_value' => '500',
+				'option_conditional_id' => 'open_type',
+				'option_conditional_values' => array( 'lightbox' ),
+			),
+			array(
+				'option_id' => 'lightbox_height',
+				'option_title' => __( 'Lightbox Height', 'mp_buttons' ),
+				'option_description' => 'What height should the lightbox popup be? (Default 500)', 'mp_buttons',
+				'option_type' => 'number',
+				'option_value' => '500',
+				'option_conditional_id' => 'open_type',
+				'option_conditional_values' => array( 'lightbox' ),
+			)
 		)
 	); 
 		
@@ -150,4 +180,4 @@ function mp_buttons_show_insert_shortcode(){
 	
 	new MP_CORE_Shortcode_Insert($args);	
 }
-add_action('init', 'mp_buttons_show_insert_shortcode');
+add_action('current_screen', 'mp_buttons_show_insert_shortcode');
