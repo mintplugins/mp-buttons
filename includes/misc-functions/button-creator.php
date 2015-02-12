@@ -103,7 +103,7 @@ function mp_buttons_show_insert_shortcode(){
 				'option_title' => __('Button Icon', 'mp_buttons'),
 				'option_description' => __( 'If you want to have an icon on this button, pick one here.', 'mp_buttons' ),
 				'option_type' => 'iconfontpicker',
-				'option_value' => mp_stacks_buttons_get_font_awesome_icons(),
+				'option_value' => mp_buttons_get_font_awesome_icons(),
 			),
 			array(
 				'option_id' => 'text',
