@@ -33,6 +33,9 @@ Make buttons!
 
 == Changelog ==
 
+= 1.0.0.9 = February 12, 2015
+* Switch from curl to wp_remote_get when getting the font icon array for the short code creator.
+
 = 1.0.0.8 = January 22, 2014
 * Buttons have their own stylesheet
 * Buttons can open lightboxes if MP Stacks is active
