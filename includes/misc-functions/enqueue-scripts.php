@@ -56,8 +56,5 @@ function mp_buttons_admin_enqueue_scripts(){
 	//Enqueue Font Awesome CSS
 	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
 	
-	//Enqueue Admin Features CSS
-	wp_enqueue_style( 'mp_buttons_css', plugins_url( 'css/admin-buttons.css', dirname( __FILE__ ) ) );
-	
 }
 add_action( 'admin_enqueue_scripts', 'mp_buttons_admin_enqueue_scripts' );

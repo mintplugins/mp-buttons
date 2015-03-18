@@ -97,6 +97,7 @@ function mp_buttons_show_insert_shortcode(){
 		'shortcode_title' => __('Button', 'mp_buttons'),
 		'shortcode_description' => __( 'Use the form below to insert the shortcode for your Button:', 'mp_buttons' ),
 		'shortcode_icon_spot' => true,
+		'shortcode_icon_dashicon_class' => 'dashicons-plus-alt',
 		'shortcode_options' => array(
 			array(
 				'option_id' => 'icon',

@@ -3,8 +3,8 @@ Contributors: johnstonphilip, mintplugins
 Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
-Tested up to: 3.8
-Stable tag: 1.0.0.8
+Tested up to: 4.1
+Stable tag: 1.0.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,8 +33,9 @@ Make buttons!
 
 == Changelog ==
 
-= 1.0.0.9 = February 12, 2015
+= 1.0.0.9 = March 18, 2015
 * Switch from curl to wp_remote_get when getting the font icon array for the short code creator.
+* Changed up the short code icon from an image to a dashicon
 
 = 1.0.0.8 = January 22, 2014
 * Buttons have their own stylesheet

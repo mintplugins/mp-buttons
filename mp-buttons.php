@@ -3,7 +3,7 @@
 Plugin Name: MP Buttons
 Plugin URI: http://mintplugins.com
 Description: Insert buttons into TinyMCE
-Version: 1.0.0.8
+Version: 1.0.0.9
 Author: Mint Plugins
 Author URI: http://mintplugins.com
 Text Domain: mp_buttons
@@ -34,7 +34,7 @@ License: GPL2
 */
 // Plugin version
 if( !defined( 'MP_BUTTONS_VERSION' ) )
-	define( 'MP_BUTTONS_VERSION', '1.0.0.8' );
+	define( 'MP_BUTTONS_VERSION', '1.0.0.9' );
 
 // Plugin Folder URL
 if( !defined( 'MP_BUTTONS_PLUGIN_URL' ) )
