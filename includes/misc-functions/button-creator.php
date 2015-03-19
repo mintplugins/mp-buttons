@@ -19,8 +19,12 @@ function mp_buttons_shortcode( $atts ) {
 	global $mp_buttons_meta_box;
 	$vars =  shortcode_atts( array(
 		'icon' => NULL,
+		'icon_position' => 'left',
+		'icon_size' => NULL,
+		'icon_spacing' => NULL,
 		'text' => NULL,
 		'link' => NULL,
+		'btn_bg' => 'show',
 		'color' => NULL,
 		'text_color' => NULL,
 		'hover_color' => NULL,
@@ -30,10 +34,10 @@ function mp_buttons_shortcode( $atts ) {
 		'lightbox_height' => 500,
 	), $atts );
 	
-	//add space to text if icon is present
-	$button_text = !empty( $vars['icon'] ) ? ' ' . $vars['text'] : $vars['text'];
-	
-	//Set up the target
+	//Default for the button style attribute string
+	$button_style = NULL;
+			
+	//Set up the target based on what the user chose for an Open Type
 	if ( $vars['open_type'] == 'lightbox' ){
 		
 		$lightbox_class = ' mp-stacks-iframe-custom-width-height ';
@@ -49,18 +53,56 @@ function mp_buttons_shortcode( $atts ) {
 		
 	}
 	
-	$button_html = '<a class="button mp-button-' . sanitize_title( $vars['text'] ) . ' ' . $vars['icon'] . $lightbox_class . '" ' . $mfp_width_height_attr . $target . ' href="' . $vars['link'] . '"	target="' . $vars['open_type'] . '">' . $button_text. '</a>';
-	$button_html .= '<style scoped>
+	//Set up the default button classes
+	$button_class = 'button mp-button mp-button-' . sanitize_title( $vars['text'] ) . ' ' . $vars['icon'] . $lightbox_class . '';
 	
-	.mp-button-' . sanitize_title( $vars['text'] ) .'{
-		background-color: ' . $vars['color'] . '!important;
-		color: ' . $vars['text_color'] . '!important;
+	//If the icon should be after the text or below it
+	if ( !empty( $vars['icon_position'] ) ){ 
+		
+		//Add the "after" class
+		if ( $vars['icon_position'] == 'right' || $vars['icon_position'] == 'below' ){ 
+			$button_class .= ' mp-button-icon-after ';
+		}
+		//Add the "before" class
+		else{
+			$button_class .= ' mp-button-icon-before ';
+		}
+		
+		//Add the "above" class
+		if ( $vars['icon_position'] == 'above' ){ 
+			$button_class .= ' mp-button-icon-above ';
+		}
+		//Add the "before" class
+		else if ( $vars['icon_position'] == 'below' ){ 
+			$button_class .= ' mp-button-icon-below ';
+		}
 	}
-	.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
-		background-color: ' . $vars['hover_color'] . '!important;
-		color: ' . $vars['hover_text_color'] . '!important;
-	}
-	</style>';
+	
+	//Set up the button html
+	$button_html = '<a style="' . $button_style . '" ' . $mfp_width_height_attr . $target . ' class="' . $button_class . '" href="' . $vars['link'] . '" target="' . $vars['open_type'] . '">' . $vars['text']. '</a>';
+	
+	//Create the custom CSS for this button for colors
+	$button_html .= '
+	<style scoped>
+	
+		.mp-button-' . sanitize_title( $vars['text'] ) .'{
+			' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['color'] . '!important;' ) . '	
+			color: ' . $vars['text_color'] . '!important;
+		}
+		.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
+			' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['hover_color'] . '!important;' ) . '	
+			color: ' . $vars['hover_text_color'] . '!important;
+		}
+		.mp-button-' . sanitize_title( $vars['text'] ) .':before{
+			font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
+			' . ( !empty( $vars['icon_spacing'] ) ? 'margin-bottom:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+		}
+		.mp-button-' . sanitize_title( $vars['text'] ) .':after{
+			font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
+			' . ( !empty( $vars['icon_spacing'] ) ? 'margin-top:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+		}';
+	
+	$button_html .= '</style>';
 		
 	//Return the stack HTML output - pass the function the stack id
 	return $button_html;
@@ -107,6 +149,36 @@ function mp_buttons_show_insert_shortcode(){
 				'option_value' => mp_buttons_get_font_awesome_icons(),
 			),
 			array(
+				'option_id' => 'icon_position',
+				'option_title' => __( 'Icon Position', 'mp_buttons' ),
+				'option_description' => __( 'Where should the Icon sit in the button?', 'mp_buttons' ),
+				'option_type' => 'select',
+				'option_value' => array( 
+					'left' => __( 'On the Left', 'mp_buttons' ),
+					'right' => __( 'On the Right', 'mp_buttons' ),
+					'above' => __( 'Above the text', 'mp_buttons' ),
+					'below' => __( 'Below the text', 'mp_buttons' ),
+				)
+			),
+			array(
+				'option_id' => 'icon_size',
+				'option_title' => __( 'Icon Size', 'mp_buttons' ),
+				'option_description' => __( 'Enter the size the icon should be in pixels. Leave blank to have it match the font size of this text area.', 'mp_buttons' ),
+				'option_type' => 'number',
+				'option_value' => '',
+				'option_conditional_id' => 'icon_position',
+				'option_conditional_values' => array( 'above', 'below' ),
+			),
+			array(
+				'option_id' => 'icon_spacing',
+				'option_title' => __( 'Icon Spacing', 'mp_buttons' ),
+				'option_description' => __( 'How much space should there be between the icon and the text?', 'mp_buttons' ),
+				'option_type' => 'number',
+				'option_value' => '',
+				'option_conditional_id' => 'icon_position',
+				'option_conditional_values' => array( 'above', 'below' ),
+			),
+			array(
 				'option_id' => 'text',
 				'option_title' => __( 'Button Text', 'mp_buttons' ),
 				'option_description' => __( 'What should the button say?', 'mp_buttons' ),
@@ -121,29 +193,43 @@ function mp_buttons_show_insert_shortcode(){
 				'option_value' => '',
 			),
 			array(
+				'option_id' => 'btn_bg',
+				'option_title' => __( 'Button Background', 'mp_buttons' ),
+				'option_description' => __( 'Should there be a background for this button?', 'mp_buttons' ),
+				'option_type' => 'select',
+				'option_value' => array( 
+					'show' => __( 'Show', 'mp_buttons' ),
+					'hide' => __( 'Hide', 'mp_buttons' ),
+				)
+			),
+			array(
 				'option_id' => 'color',
-				'option_title' => __( 'Button Color', 'mp_buttons' ),
+				'option_title' => __( 'Button Background Color', 'mp_buttons' ),
 				'option_description' => __( 'Pick a color for this button', 'mp_buttons' ),
 				'option_type' => 'colorpicker',
 				'option_value' => '',
+				'option_conditional_id' => 'btn_bg',
+				'option_conditional_values' => array( 'show' ),
+			),
+			array(
+				'option_id' => 'hover_color',
+				'option_title' => __( 'Mouse-Over Button Background Color', 'mp_buttons' ),
+				'option_description' => __( 'Pick a color for this button when the mouse is over it', 'mp_buttons' ),
+				'option_type' => 'colorpicker',
+				'option_value' => '',
+				'option_conditional_id' => 'btn_bg',
+				'option_conditional_values' => array( 'show' ),
 			),
 			array(
 				'option_id' => 'text_color',
-				'option_title' => __( 'Button Text Color', 'mp_buttons' ),
+				'option_title' => __( 'Button Text/Icon Color', 'mp_buttons' ),
 				'option_description' => __( 'Pick a color for the text on this button', 'mp_buttons' ),
 				'option_type' => 'colorpicker',
 				'option_value' => '',
 			),
 			array(
-				'option_id' => 'hover_color',
-				'option_title' => __( 'Mouse-Over Button Color', 'mp_buttons' ),
-				'option_description' => __( 'Pick a color for this button when the mouse is over it', 'mp_buttons' ),
-				'option_type' => 'colorpicker',
-				'option_value' => '',
-			),
-			array(
 				'option_id' => 'hover_text_color',
-				'option_title' => __( 'Mouse-Over Button Text Color', 'mp_buttons' ),
+				'option_title' => __( 'Mouse-Over Button Text/Icon Color', 'mp_buttons' ),
 				'option_description' => __( 'Pick a color for text on this button when the mouse is over it', 'mp_buttons' ),
 				'option_type' => 'colorpicker',
 				'option_value' => '',
