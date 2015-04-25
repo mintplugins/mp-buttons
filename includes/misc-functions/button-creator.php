@@ -81,33 +81,41 @@ function mp_buttons_shortcode( $atts ) {
 	//Set up the button html
 	$button_html = '<a style="' . $button_style . '" ' . $mfp_width_height_attr . $target . ' class="' . $button_class . '" href="' . $vars['link'] . '" target="' . $vars['open_type'] . '">' . $vars['text']. '</a>';
 	
-	//Create the custom CSS for this button for colors
-	$button_html .= '
-	<style scoped>
-	
-		.mp-button-' . sanitize_title( $vars['text'] ) .'{
-			' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['color'] . '!important;' ) . '	
-			color: ' . $vars['text_color'] . '!important;
-		}
-		.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
-			' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['hover_color'] . '!important;' ) . '	
-			color: ' . $vars['hover_text_color'] . '!important;
-		}
-		.mp-button-' . sanitize_title( $vars['text'] ) .':before{
-			font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
-			' . ( !empty( $vars['icon_spacing'] ) ? 'margin-bottom:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
-		}
-		.mp-button-' . sanitize_title( $vars['text'] ) .':after{
-			font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
-			' . ( !empty( $vars['icon_spacing'] ) ? 'margin-top:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
-		}';
-	
-	$button_html .= '</style>';
+	global $mp_buttons_footer_css;
+	$mp_buttons_footer_css .= '
+		<style type="text/css">
+		
+			.mp-button-' . sanitize_title( $vars['text'] ) .'{
+				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['color'] . '!important;' ) . '	
+				color: ' . $vars['text_color'] . '!important;
+			}
+			.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
+				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['hover_color'] . '!important;' ) . '	
+				color: ' . $vars['hover_text_color'] . '!important;
+			}
+			.mp-button-' . sanitize_title( $vars['text'] ) .':before{
+				font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
+				' . ( !empty( $vars['icon_spacing'] ) ? 'margin-bottom:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+			}
+			.mp-button-' . sanitize_title( $vars['text'] ) .':after{
+				font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
+				' . ( !empty( $vars['icon_spacing'] ) ? 'margin-top:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+			}
+		</style>';
 		
 	//Return the stack HTML output - pass the function the stack id
 	return $button_html;
 }
 add_shortcode( 'mp_button', 'mp_buttons_shortcode' );
+
+//Create the custom CSS for this button for colors
+function mp_button_footer_css(){
+	
+	global $mp_buttons_footer_css;
+	
+	echo $mp_buttons_footer_css;
+}
+add_action( 'wp_footer', 'mp_button_footer_css' );
 
 /**
  * Show "Insert Shortcode" above posts
