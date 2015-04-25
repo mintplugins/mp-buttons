@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.0.0.9
+Stable tag: 1.0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,13 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.1.0 = April 25, 2015
+* Button icons can now be above/below/after
+* Buttons can have transparent backgrounds
+* Button Icons can be custom sized
+* Button icons now verticaly aligned
+* Changed CSS output for custom buttons from being inside the <p> tag to being in the footer at the bottom instead (mp_buttons_footer_css).
 
 = 1.0.0.9 = March 18, 2015
 * Switch from curl to wp_remote_get when getting the font icon array for the short code creator.
