@@ -120,15 +120,7 @@ add_action( 'wp_footer', 'mp_button_footer_css' );
 /**
  * Show "Insert Shortcode" above posts
  */
-function mp_buttons_show_insert_shortcode(){
-	
-	//Get current page
-	$current_page = get_current_screen();
-	
-	//Only load if we are on an mp_brick page
-	if ( $current_page->base != 'post' ){
-		return;	
-	}
+function mp_buttons_show_insert_shortcode( $post_type ){
 	
 	//If MP Stacks is installed, give them the option to have a lightbox popup
 	$open_options = function_exists( 'mp_stacks_textdomain' ) ? array( 
@@ -275,4 +267,4 @@ function mp_buttons_show_insert_shortcode(){
 	
 	new MP_CORE_Shortcode_Insert($args);	
 }
-add_action('current_screen', 'mp_buttons_show_insert_shortcode');
+add_action('mp_core_shortcode_setup', 'mp_buttons_show_insert_shortcode');
