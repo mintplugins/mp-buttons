@@ -86,20 +86,20 @@ function mp_buttons_shortcode( $atts ) {
 		<style type="text/css">
 		
 			.mp-button-' . sanitize_title( $vars['text'] ) .'{
-				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['color'] . '!important;' ) . '	
-				color: ' . $vars['text_color'] . '!important;
+				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : mp_core_css_line( 'background-color', $vars['color'], '!important' ) ) . '	
+				' . mp_core_css_line( 'color', $vars['text_color'], '!important' ) . '
 			}
 			.mp-button-' . sanitize_title( $vars['text'] ) .':hover{
-				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : 'background-color: ' . $vars['hover_color'] . '!important;' ) . '	
-				color: ' . $vars['hover_text_color'] . '!important;
+				' . ( $vars['btn_bg'] == 'hide' ? 'background:transparent!important;' : mp_core_css_line( 'background-color', $vars['hover_color'], '!important' ) ) . '	
+				' . mp_core_css_line( 'color', $vars['hover_text_color'], '!important' ) . '
 			}
 			.mp-button-' . sanitize_title( $vars['text'] ) .':before{
-				font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
-				' . ( !empty( $vars['icon_spacing'] ) ? 'margin-bottom:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+				' . mp_core_css_line( 'font-size', $vars['icon_size'], 'px!important' ) . '
+				' . mp_core_css_line( 'margin-bottom', $vars['icon_spacing'], 'px!important' ) . '
 			}
 			.mp-button-' . sanitize_title( $vars['text'] ) .':after{
-				font-size: ' . ( !empty( $vars['icon_size'] ) ? $vars['icon_size'] . 'px!important;' : NULL ) . '
-				' . ( !empty( $vars['icon_spacing'] ) ? 'margin-top:' . $vars['icon_spacing'] . 'px;' : NULL ) . '	
+				' . mp_core_css_line( 'font-size', $vars['icon_size'], 'px!important' ) . '
+				' . mp_core_css_line( 'margin-top', $vars['icon_spacing'], 'px!important' ) . '
 			}
 		</style>';
 		

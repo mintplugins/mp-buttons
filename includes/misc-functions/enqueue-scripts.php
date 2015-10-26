@@ -7,7 +7,7 @@
  * @package    MP Buttons
  * @subpackage Functions
  *
- * @copyright  Copyright (c) 2014, Mint Plugins
+ * @copyright  Copyright (c) 2015, Mint Plugins
  * @license    http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @author     Philip Johnston
  */
@@ -28,7 +28,7 @@
 function mp_buttons_enqueue_scripts(){
 	
 	//Enqueue Font Awesome CSS
-	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome/css/font-awesome.css', dirname( __FILE__ ) ) );
 		
 	//Enqueue buttons CSS
 	wp_enqueue_style( 'mp_buttons_css', plugins_url( 'css/buttons.css', dirname( __FILE__ ) ) );
@@ -42,7 +42,7 @@ add_action( 'wp_enqueue_scripts', 'mp_buttons_enqueue_scripts' );
  */
 function mp_buttons_add_tiny_mce(){
 	//Default styles for tinymce
-	add_editor_style( plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	add_editor_style( plugins_url( '/fonts/font-awesome/css/font-awesome.css', dirname( __FILE__ ) ) );
 }
 add_action( 'mp_core_editor_styles', 'mp_buttons_add_tiny_mce' );
 
@@ -54,7 +54,7 @@ add_action( 'mp_core_editor_styles', 'mp_buttons_add_tiny_mce' );
 function mp_buttons_admin_enqueue_scripts(){
 	
 	//Enqueue Font Awesome CSS
-	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome-4.0.3/css/font-awesome.css', dirname( __FILE__ ) ) );
+	wp_enqueue_style( 'fontawesome', plugins_url( '/fonts/font-awesome/css/font-awesome.css', dirname( __FILE__ ) ) );
 	
 }
 add_action( 'admin_enqueue_scripts', 'mp_buttons_admin_enqueue_scripts' );
