@@ -3,8 +3,8 @@ Contributors: johnstonphilip, mintplugins
 Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.5
-Tested up to: 4.2
-Stable tag: 1.0.1.1
+Tested up to: 4.3
+Stable tag: 1.0.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.1.2 = October 26, 2015
+* Upgrade Font Awesome to version 4.4.0
 
 = 1.0.1.1 = September 14, 2015
 * Shortcode Hook now uses 'mp_core_shortcode_setup' to work with mp_core 1.0.2.1
