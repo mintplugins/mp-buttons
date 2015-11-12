@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: buttons, tinyMCE
 Requires at least: 3.5
 Tested up to: 4.3
-Stable tag: 1.0.1.2
+Stable tag: 1.0.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ Make buttons!
 
 
 == Changelog ==
+
+= 1.0.1.3 = October 26, 2015
+* Changed vertical align for button icons from 'middle' to 'baseline'
 
 = 1.0.1.2 = October 26, 2015
 * Upgrade Font Awesome to version 4.4.0
