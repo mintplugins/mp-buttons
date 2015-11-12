@@ -46,7 +46,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;	
 	margin-right:5px;
-	vertical-align:middle;
+	vertical-align:baseline;
 }
 .mp-button-icon-before:after{/* Kill the icon appearing in the :after position */
 	content:''!important;
